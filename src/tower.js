@@ -14,7 +14,7 @@ function Tower(game, x, y) {
     this.w = 140
     this.h = 117
 
-    this.damage = 25
+    this.damage = 50
 
     this.img.frames = 3
     this.img.frameIndex = 0

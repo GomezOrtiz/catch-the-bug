@@ -7,7 +7,7 @@ function Character(game, x) {
     this.x = x - this.w - 50
     this.y = 155
     
-    this.speedX = 0.8
+    this.speedX = 1.5
 
     this.img = new Image()
     this.img.src = "img/ladybug.png"
@@ -51,7 +51,6 @@ Character.prototype.move = function() {
 
 Character.prototype.receiveDamage = function (damage) {
     this.health -= damage
-    console.log(this.health)
     if (this.health <= 0){
         this.isDead = true
         this.game.enemies.splice(this.game.enemies.indexOf(this),1)

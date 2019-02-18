@@ -15,13 +15,33 @@ var Game = {
         this.start()
     },
 
-    waves : {
+    waves: {
         1: [1],
         2: [2],
-        3: [3]
+        3: [3],
+        4: [4],
+        5: [5],
+        6: [6]
     },
 
+    targets: [
+        {minX:300,maxX:365,minY:230,maxY:290,x:130,y:50},
+        {minX:460,maxX:525,minY:230,maxY:290,x:290,y:50},
+        {minX:620,maxX:685,minY:230,maxY:290,x:450,y:50},
+        {minX:780,maxX:845,minY:230,maxY:290,x:610,y:50},
+        {minX:940,maxX:1005,minY:230,maxY:290,x:770,y:50},
+
+        {minX:220,maxX:285,minY:430,maxY:490,x:50,y:270},
+        {minX:380,maxX:445,minY:430,maxY:490,x:210,y:270},
+        {minX:540,maxX:600,minY:430,maxY:490,x:370,y:270},
+        {minX:700,maxX:765,minY:430,maxY:490,x:530,y:270},
+        {minX:860,maxX:925,minY:430,maxY:490,x:690,y:270},
+        {minX:1020,maxX:1085,minY:430,maxY:490,x:850,y:270}
+    ],
+
     start: function () {
+
+        this.setListeners()
 
         this.reset()
 
@@ -51,6 +71,23 @@ var Game = {
         }.bind(this), 1000 / this.fps)
     },
 
+    setListeners: function () {
+        document.onmouseup = function (e) {
+
+            if (this.gold >= 500){
+                var target = this.targets.filter(function(target) {
+                    return target.minX < e.screenX && target.maxX > e.screenX && target.minY < e.screenY && target.maxY > e.screenY
+                })
+
+                if (target.length > 0){
+                    var newTower = new Tower(this,target[0].x,target[0].y)
+                    this.towers.push(newTower)
+                    this.gold -= 500
+                }
+            }
+        }.bind(this)
+    },
+
     pushWave: function (wave) {
         for (var i = 0; i < this.waves[wave]; i++){
             var newEnemy = new Character (this, i*-150)
@@ -60,17 +97,13 @@ var Game = {
 
     reset: function () {
         this.framesCounter = 0;
-        this.gold = 0
+        this.gold = 500
         this.wave = 1
         this.enemies = []
         this.lives = 3
         this.background = new Background(this)
         this.scoreGold = new ScoreGold(this)
         this.scoreLives = new ScoreLives(this)
-        this.tower = new Tower(this,210,270)
-        this.tower2 = new Tower(this,290,50)
-        this.towers.push(this.tower)
-        this.towers.push(this.tower2)
     },
 
     stop: function () {
