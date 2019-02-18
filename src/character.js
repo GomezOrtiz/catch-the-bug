@@ -4,22 +4,24 @@ function Character(game, x) {
     this.w = 120
     this.h = 134
 
-    this.x = x - this.w - 50
-    this.y = 155
-    
     this.speedX = 1.5
 
     this.img = new Image()
     this.img.src = "img/ladybug.png"
 
     this.health = 100
-    this.isDead = false
     this.goldValue = 100
-    this.goldGiven = false
 
+    this.init(x)
+}
+
+Character.prototype.init = function (x) {
+    this.x = x - this.w - 50
+    this.y = 155
+    this.isDead = false
+    this.goldGiven = false
     this.img.frames = 5
     this.img.frameIndex = 0
-
 }
 
 Character.prototype.draw = function() {

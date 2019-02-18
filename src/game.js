@@ -11,18 +11,22 @@ var Game = {
         this.lives = 3
         this.enemies = []
         this.towers = []
-        this.wave = 1
+        this.wave = 0
         this.start()
     },
 
-    waves: {
-        1: [1],
-        2: [2],
-        3: [3],
-        4: [4],
-        5: [5],
-        6: [6]
-    },
+    waves: [
+        {ladybugs:1},
+        {ladybugs:2},
+        {starbeetles:1,ladybugs:2},
+        {starbeetles:1,ladybugs:3},
+        {starbeetles:2,ladybugs:3},
+        {leafbeetles:1,starbeetles:2,ladybugs:2},
+        {leafbeetles:2,starbeetles:2,ladybugs:2},
+        {leafbeetles:2,starbeetles:4,ladybugs:2},
+        {leafbeetles:4,starbeetles:2,ladybugs:2},
+        {leafbeetles:4,starbeetles:4,ladybugs:4},
+    ],
 
     targets: [
         {minX:300,maxX:365,minY:230,maxY:290,x:130,y:50},
@@ -89,17 +93,30 @@ var Game = {
     },
 
     pushWave: function (wave) {
-        for (var i = 0; i < this.waves[wave]; i++){
-            var newEnemy = new Character (this, i*-150)
+        var counter = 0
+        for (var i = 0; i < this.waves[wave].leafbeetles; i++){
+            var newEnemy = new Leafbeetle (this, counter*-150)
             this.enemies.push(newEnemy)
+            counter++
+        }
+        for (var i = 0; i < this.waves[wave].starbeetles; i++){
+            var newEnemy = new Starbeetle (this, counter*-150)
+            this.enemies.push(newEnemy)
+            counter++
+        }
+        for (var i = 0; i < this.waves[wave].ladybugs; i++){
+            var newEnemy = new Ladybug (this, counter*-150)
+            this.enemies.push(newEnemy)
+            counter++
         }
     },
 
     reset: function () {
         this.framesCounter = 0;
         this.gold = 500
-        this.wave = 1
+        this.wave = 0
         this.enemies = []
+        this.towers = []
         this.lives = 3
         this.background = new Background(this)
         this.scoreGold = new ScoreGold(this)
