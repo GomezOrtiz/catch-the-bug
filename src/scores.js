@@ -29,7 +29,7 @@ ScoreGold.prototype.constructor = ScoreGold
 
 ScoreGold.prototype.drawText = function () {
   this.game.ctx.fillStyle = "white"
-  this.game.ctx.fillText(this.game.gold, this.x + 60,this.y + 35)
+  this.game.ctx.fillText(this.game.gold, this.x + 60,this.y + 37)
 }
 
 function ScoreLives (game) {

@@ -68,7 +68,7 @@ var Game = {
         this.scoreGold = new ScoreGold(this)
         this.scoreLives = new ScoreLives(this)
         this.tower = new Tower(this,210,270)
-        this.tower2 = new Tower(this,370,270)
+        this.tower2 = new Tower(this,290,50)
         this.towers.push(this.tower)
         this.towers.push(this.tower2)
     },
@@ -108,12 +108,26 @@ var Game = {
     isHit: function () {
         this.towers.forEach (function (tower){
             tower.bullets.forEach(function (bullet) {
-                if (bullet.hit === false){
+                if (bullet.hit === false && bullet.direction === "N"){
                     this.enemies.forEach (function (enemy) {
                         if (
                             ((enemy.x + enemy.w) > bullet.x &&
                             enemy.x < (bullet.x + bullet.w) &&
-                            enemy.y + (enemy.h - 40) > bullet.y)
+                            enemy.y + (enemy.h - 55) > bullet.y
+                            )
+                        ) {
+                            bullet.hit = true
+                            enemy.receiveDamage(bullet.damage)
+                        }
+                    }.bind(this))
+                }
+                if (bullet.hit === false && bullet.direction === "S"){
+                    this.enemies.forEach (function (enemy) {
+                        if (
+                            ((enemy.x + enemy.w) > bullet.x &&
+                            enemy.x < (bullet.x + bullet.w) &&
+                            (enemy.y + 55) < (bullet.y + bullet.h)
+                            )
                         ) {
                             bullet.hit = true
                             enemy.receiveDamage(bullet.damage)
