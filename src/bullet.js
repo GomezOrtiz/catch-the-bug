@@ -10,8 +10,8 @@ function Bullet(game, x, y, charX, charY, damage) {
     this.w = 20
     this.h = 20
     
-    this.speedX = 0.5
-    this.speedY = 0.5
+    this.speedX = 2
+    this.speedY = 2
 
     this.hit = false
     this.damage = damage

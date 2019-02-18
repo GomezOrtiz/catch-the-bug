@@ -1,8 +1,8 @@
-function Tower(game) {
+function Tower(game, x, y) {
     this.game = game
    
-    this.x = 210
-    this.y = 270
+    this.x = x
+    this.y = y
 
     this.range = 100
     this.bullets = []

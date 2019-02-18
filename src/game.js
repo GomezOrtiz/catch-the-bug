@@ -10,6 +10,7 @@ var Game = {
         this.canvas.height = this.h
         this.lives = 3
         this.enemies = []
+        this.towers = []
         this.wave = 1
         this.start()
     },
@@ -66,7 +67,14 @@ var Game = {
         this.background = new Background(this)
         this.scoreGold = new ScoreGold(this)
         this.scoreLives = new ScoreLives(this)
-        this.tower = new Tower(this)
+        this.tower = new Tower(this,210,270)
+        this.tower2 = new Tower(this,370,270)
+        this.towers.push(this.tower)
+        this.towers.push(this.tower2)
+    },
+
+    stop: function () {
+        clearInterval(this.interval)
     },
 
     clear: function () {
@@ -80,7 +88,9 @@ var Game = {
         this.enemies.forEach (function (enemy) {
             enemy.draw()
         }.bind(this))
-        this.tower.draw()
+        this.towers.forEach (function (tower) {
+            tower.draw()
+        }.bind(this))
     },
 
     moveAll: function () {
@@ -90,42 +100,44 @@ var Game = {
     },
 
     attackAll: function () {
-        this.tower.attack()
+        this.towers.forEach (function (tower) {
+            tower.attack()
+        }.bind(this))
     },
 
     isHit: function () {
-        
-        return this.tower.bullets.some(function (bullet) {
-            if (bullet.hit === false){
-                this.enemies.forEach (function (enemy) {
-                    if (
-                        ((enemy.x + enemy.w) > bullet.x &&
-                        enemy.x < (bullet.x + bullet.w) &&
-                        enemy.y + (enemy.h - 40) > bullet.y)
-                    ) {
-                        bullet.hit = true
-                        enemy.receiveDamage(bullet.damage)
-                        this.enemies.forEach(function (enemy) {
-                            if (enemy.isDead){
-                                setTimeout(function(){ 
-                                    this.enemies.splice(this.enemies.indexOf(enemy),1)
-                                    this.gold += enemy.goldValue
-                                }.bind(this), 500);
-                            }
-                        }.bind(this))
-                        return true
-                    }
-                }.bind(this))
-               
-            }
-        }.bind(this));
+        this.towers.forEach (function (tower){
+            tower.bullets.forEach(function (bullet) {
+                if (bullet.hit === false){
+                    this.enemies.forEach (function (enemy) {
+                        if (
+                            ((enemy.x + enemy.w) > bullet.x &&
+                            enemy.x < (bullet.x + bullet.w) &&
+                            enemy.y + (enemy.h - 40) > bullet.y)
+                        ) {
+                            bullet.hit = true
+                            enemy.receiveDamage(bullet.damage)
+                        }
+                    }.bind(this))
+                }
+            }.bind(this));
+        }.bind(this))
     },
 
     isGameOver: function () {
         this.enemies.forEach(function (enemy){
-            if (enemy.x > this.w + 10){
+            if (enemy.x > this.w){
                 this.lives -= 1
+                this.enemies.splice(this.enemies.indexOf(enemy),1)
             }
-        })
+            if (this.lives === 0){
+                this.stop()
+    
+                if (confirm("GAME OVER. Play again?")) {
+                  this.reset()
+                  this.start()
+                }
+            }
+        }.bind(this))
     }
 }
