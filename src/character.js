@@ -4,14 +4,9 @@ function Character(game, x) {
     this.w = 120
     this.h = 134
 
-    this.speedX = 1.5
-
     this.img = new Image()
     this.img.src = "img/ladybug.png"
-
-    this.health = 100
-    this.goldValue = 100
-
+    
     this.init(x)
 }
 
@@ -36,7 +31,8 @@ Character.prototype.draw = function() {
         this.w,
         this.h
     )
-    this.animateImg()
+    this.drawLife()
+    this.animateImg()    
 }
 
 Character.prototype.animateImg = function() {
@@ -45,6 +41,11 @@ Character.prototype.animateImg = function() {
     
         if (this.img.frameIndex > 2) this.img.frameIndex = 0
     }
+}
+
+Character.prototype.drawLife = function() {
+    this.game.ctx.fillStyle = "green";
+    this.game.ctx.fillRect(this.x + 20, this.y + 10, this.health / 2, 5);
 }
 
 Character.prototype.move = function() {
@@ -62,4 +63,3 @@ Character.prototype.receiveDamage = function (damage) {
         }
     }
 }
-

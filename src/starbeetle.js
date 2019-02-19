@@ -9,8 +9,8 @@ function Starbeetle(game, x) {
     this.img = new Image()
     this.img.src = "img/starbeetle.png"
 
-    this.health = 200
-    this.goldValue = 150
+    this.health = 150
+    this.goldValue = 200
 
     this.init(x)
 }

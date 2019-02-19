@@ -1,6 +1,11 @@
-function Tower(game, x, y) {
+function Tower(game, x, y, minX, maxX, minY, maxY) {
     this.game = game
-   
+    
+    this.minX = minX
+    this.maxX = maxX
+    this.minY = minY
+    this.maxY = maxY
+
     this.x = x
     this.y = y
     this.direction = ""
@@ -18,7 +23,21 @@ function Tower(game, x, y) {
 
     this.img.frames = 3
     this.img.frameIndex = 0
+
+    this.upImg = new Image()
+    this.upImg.src = "img/upgrade.png"
+
+    this.upgradeValue = 200
+    this.upgradable = false
+    // this.drawable = false
+
+    // this.init()
+
 }
+
+// Tower.prototype.init = function () {
+//     this.setListeners()
+// }
 
 Tower.prototype.getDirection = function () {
     if (this.y < 100){
@@ -43,6 +62,9 @@ Tower.prototype.draw = function() {
         this.w,
         this.h
       )
+    
+    this.canUpgrade()
+    this.drawUpdate()
     
     this.bullets = this.bullets.filter(function(bullet) {
         return  (bullet.direction === "N" && (bullet.y > (279 - (134 / 2) + 20))) || 
@@ -76,5 +98,54 @@ Tower.prototype.attack = function() {
             }
         }
     }        
+}
+
+// Tower.prototype.setListeners = function () {
+//     window.onmouseover = function (e) {
+//         console.log(this.minX)
+//         console.log(e.screenX)
+//         console.log(this.maxX)
+//         console.log(this.minY)
+//         console.log(e.screenY)
+//         console.log(this.maxY)
+
+//         if (this.minX < e.screenX && this.maxX > e.screenX && this.minY < e.screenY && this.maxY > e.screenY){
+//             alert("Estoy encima")
+//             this.drawable = true
+//         } else {
+//             this.drawable = false                
+//         }
+
+//     }.bind(this)
+// }
+
+Tower.prototype.canUpgrade = function () {
+
+    if (this.game.gold >= this.upgradeValue){
+        this.upgradable = true
+    }
+
+    if (this.upgradable) {
+        if (this.direction === "N"){
+            this.upImg.src = "img/upgrade.png"
+        } else {
+            this.upImg.src = "img/upgrade_south.png"
+        }
+    } else {
+        if (this.direction === "N"){
+            this.upImg.src = "img/no_upgrade.png"
+        } else {
+            this.upImg.src = "img/no_upgrade_south.png"
+        }
+    }
+   
+}
+
+Tower.prototype.drawUpdate = function () {
+    if (this.direction === "N"){
+        this.game.ctx.drawImage(this.upImg, this.x + 25, this.y + this.h -10, 90, 37)
+    } else {
+        this.game.ctx.drawImage(this.upImg, this.x + 25, this.y -25, 90, 37)
+    }
 }
 

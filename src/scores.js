@@ -4,7 +4,7 @@ function Score (game) {
     this.w = 176
     this.h = 60
 
-    this.y = 0
+    this.y = this.game.h - 67
   
   }
 
@@ -20,7 +20,7 @@ function ScoreGold (game) {
   this.img = new Image()
   this.img.src = 'img/gold.png'
 
-  this.x = (this.game.w - this.w)
+  this.x = (this.game.w - this.w - 5)
   
 }
 
@@ -36,9 +36,13 @@ function ScoreLives (game) {
   Score.call(this,game)
 
   this.img = new Image()
-  this.img.src = 'img/lives.png'
+  this.img.src = 'img/lives2.png'
 
-  this.x = (this.game.w - this.w * 2)
+  this.w = 98
+  this.h = 56
+
+  this.y = this.game.h - 65
+  this.x = (this.game.w - this.w * 3 + 15)
 
   this.text = this.game.lives
   
@@ -49,7 +53,5 @@ ScoreLives.prototype.constructor = ScoreLives
 
 ScoreLives.prototype.drawText = function () {
   this.game.ctx.fillStyle = "white"
-  this.game.ctx.fillText(this.game.lives, this.x + 60,this.y + 35)
+  this.game.ctx.fillText(this.game.lives, this.x + 60,this.y + 32)
 }
-
-

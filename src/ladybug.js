@@ -10,7 +10,7 @@ function Ladybug(game, x) {
     this.img.src = "img/ladybug.png"
 
     this.health = 100
-    this.goldValue = 100
+    this.goldValue = 150
 
     this.init(x)
 }
