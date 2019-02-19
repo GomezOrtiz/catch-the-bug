@@ -93,19 +93,17 @@ var Game = {
             }
         }.bind(this)
 
-        // this.onmouseover = function (e) {
+        document.onmousemove = function (e) {
 
-        //     this.towers.forEach (function (tower) {
-        //         if (tower.minX < e.screenX && tower.maxX > e.screenX && tower.minY < e.screenY && tower.maxY > e.screenY){
-        //             alert("Estoy encima")
-        //             tower.drawable = true
-        //         } else {
-        //             alert("No estoy encima")
-        //             tower.drawable = false                
-        //         }
-        //     }.bind(this))
+            this.towers.forEach (function (tower) {
+                if (tower.minX < e.screenX && tower.maxX > e.screenX && tower.minY < e.screenY && tower.maxY > e.screenY){
+                    tower.drawable = true
+                } else {
+                    tower.drawable = false                
+                }
+            }.bind(this))
 
-        // }.bind(this)
+        }.bind(this)
     },
 
     pushWave: function (wave) {
@@ -212,7 +210,7 @@ var Game = {
         this.enemies.forEach(function (enemy){
             if (enemy.x > this.w){
                 this.lives -= 1
-                this.gold /= 2
+                this.gold = Math.round(this.gold / 2)
                 this.enemies.splice(this.enemies.indexOf(enemy),1)
             }
             if (this.lives === 0){

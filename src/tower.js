@@ -29,15 +29,9 @@ function Tower(game, x, y, minX, maxX, minY, maxY) {
 
     this.upgradeValue = 200
     this.upgradable = false
-    // this.drawable = false
-
-    // this.init()
+    this.drawable = false
 
 }
-
-// Tower.prototype.init = function () {
-//     this.setListeners()
-// }
 
 Tower.prototype.getDirection = function () {
     if (this.y < 100){
@@ -69,8 +63,6 @@ Tower.prototype.draw = function() {
     this.bullets = this.bullets.filter(function(bullet) {
         return  (bullet.direction === "N" && (bullet.y > (279 - (134 / 2) + 20))) || 
                 (bullet.direction === "S" && ((bullet.y + bullet.h) < (279 - (134 / 2))))
-                // (bullet.direction === "N" && bullet.y < 150) ||
-                // (bullet.direction === "S" && (bullet.y + bullet.h) > 150)
     }.bind(this))
 
     this.bullets.forEach(function(bullet) {
@@ -100,25 +92,6 @@ Tower.prototype.attack = function() {
     }        
 }
 
-// Tower.prototype.setListeners = function () {
-//     window.onmouseover = function (e) {
-//         console.log(this.minX)
-//         console.log(e.screenX)
-//         console.log(this.maxX)
-//         console.log(this.minY)
-//         console.log(e.screenY)
-//         console.log(this.maxY)
-
-//         if (this.minX < e.screenX && this.maxX > e.screenX && this.minY < e.screenY && this.maxY > e.screenY){
-//             alert("Estoy encima")
-//             this.drawable = true
-//         } else {
-//             this.drawable = false                
-//         }
-
-//     }.bind(this)
-// }
-
 Tower.prototype.canUpgrade = function () {
 
     if (this.game.gold >= this.upgradeValue){
@@ -142,10 +115,13 @@ Tower.prototype.canUpgrade = function () {
 }
 
 Tower.prototype.drawUpdate = function () {
-    if (this.direction === "N"){
-        this.game.ctx.drawImage(this.upImg, this.x + 25, this.y + this.h -10, 90, 37)
-    } else {
-        this.game.ctx.drawImage(this.upImg, this.x + 25, this.y -25, 90, 37)
+    if (this.drawable){
+        if (this.direction === "N"){
+            this.game.ctx.drawImage(this.upImg, this.x + 25, this.y + this.h -10, 90, 37)
+        } else {
+            this.game.ctx.drawImage(this.upImg, this.x + 25, this.y -25, 90, 37)
+        }
     }
+    
 }
 
