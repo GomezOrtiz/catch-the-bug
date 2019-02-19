@@ -8,38 +8,34 @@ function Tower(game, x, y, minX, maxX, minY, maxY) {
 
     this.x = x
     this.y = y
-    this.direction = ""
 
-    this.range = 100
-    this.bullets = []
-    
+    this.init()
+
+}
+
+Tower.prototype.init = function () {
+
     this.img = new Image()
     this.img.src = ""
-
-    this.w = 140
-    this.h = 117
-
-    this.damage = 50
-
     this.img.frames = 3
     this.img.frameIndex = 0
-
-    this.upImg = new Image()
-    this.upImg.src = "img/upgrade.png"
-
-    this.upgradeValue = 200
+    this.direction = ""
+    this.bullets = []
     this.upgradable = false
     this.drawable = false
+   
+    this.upImg = new Image()
+    this.upImg.src = "img/upgrade.png"
 
 }
 
 Tower.prototype.getDirection = function () {
     if (this.y < 100){
         this.direction = "S"
-        this.img.src = "img/tower2.png"
+        this.img.src = this.imgSouth
     } else {
         this.direction = "N"
-        this.img.src = "img/tower.png"
+        this.img.src = this.imgNorth
     }
 }
 
@@ -92,10 +88,20 @@ Tower.prototype.attack = function() {
     }        
 }
 
+Tower.prototype.upgradeListener = function (e) {
+
+    if (this.minX < e.screenX && this.maxX > e.screenX && this.minY < e.screenY && this.maxY > e.screenY){
+        this.upgrade()
+    }
+
+}
+
 Tower.prototype.canUpgrade = function () {
 
     if (this.game.gold >= this.upgradeValue){
         this.upgradable = true
+    } else {
+        this.upgradable = false
     }
 
     if (this.upgradable) {

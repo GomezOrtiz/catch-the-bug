@@ -8,10 +8,6 @@ var Game = {
         this.ctx = this.canvas.getContext("2d")
         this.canvas.width = this.w
         this.canvas.height = this.h
-        this.lives = 3
-        this.enemies = []
-        this.towers = []
-        this.wave = 0
         this.start()
     },
 
@@ -75,22 +71,65 @@ var Game = {
         }.bind(this), 1000 / this.fps)
     },
 
+    
+    reset: function () {
+        this.framesCounter = 0;
+        this.gold = 500
+        this.wave = 0
+        this.enemies = []
+        this.towers = []
+        this.lives = 3
+        this.enemySelection = 1
+        this.background = new Background(this)
+        this.scoreGold = new ScoreGold(this)
+        this.scoreLives = new ScoreLives(this)
+        this.purpleBtn = new Button(this,this.w - 400, "img/buy_purple.png")
+        this.greenBtn = new Button (this, this.w - 350, "img/buy_green.png")
+    },
+
+    stop: function () {
+        clearInterval(this.interval)
+    },
+
     setListeners: function () {
 
-        document.onmouseup = function (e) {
+        document.onclick = function (e) {
 
-            if (this.gold >= 500){
+                if(e.screenY > 587 && e.screenY < 620){
+                    if(e.screenX > 745 && e.screenX < 785){
+                        this.enemySelection = 1
+                        console.log(this.enemySelection)
+                    } else if (e.screenX > 797 && e.screenX < 831) {
+                        this.enemySelection = 2
+                        console.log(this.enemySelection)
+                    }
+                }
+
                 var target = this.targets.filter(function(target) {
                     return target.minX < e.screenX && target.maxX > e.screenX && target.minY < e.screenY && target.maxY > e.screenY
                 })
 
                 if (target.length > 0 && target[0].tower === false){
-                    var newTower = new Tower(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
-                    this.towers.push(newTower)
-                    this.gold -= 500
-                    target[0].tower = true
+                    if (this.gold >= 500) {
+                        if (this.enemySelection === 1){
+                            var newTower = new PurpleMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
+                            this.towers.push(newTower)
+                            this.gold -= 500
+                            target[0].tower = true
+                        }
+                        else if (this.enemySelection === 2) {
+                            var newTower = new GreenMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
+                            this.towers.push(newTower)
+                            this.gold -= 500
+                            target[0].tower = true
+                        }
+                    }
+                } else {
+                    this.towers.forEach(function(tower) {
+                        tower.upgradeListener(e)
+                    })
                 }
-            }
+        
         }.bind(this)
 
         document.onmousemove = function (e) {
@@ -123,24 +162,6 @@ var Game = {
             this.enemies.push(newEnemy)
             counter++
         }
-    },
-
-    reset: function () {
-        this.framesCounter = 0;
-        this.gold = 500
-        this.wave = 0
-        this.enemies = []
-        this.towers = []
-        this.lives = 3
-        this.background = new Background(this)
-        this.scoreGold = new ScoreGold(this)
-        this.scoreLives = new ScoreLives(this)
-        this.purpleBtn = new Button(this,this.w - 400, "img/buy_purple.png")
-        this.greenBtn = new Button (this, this.w - 350, "img/buy_green.png")
-    },
-
-    stop: function () {
-        clearInterval(this.interval)
     },
 
     clear: function () {

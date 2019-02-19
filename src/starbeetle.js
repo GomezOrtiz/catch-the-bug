@@ -1,7 +1,6 @@
 function Starbeetle(game, x) {
     Character.call(this,game,x)
     
-    this.w = 120
     this.h = 133
     
     this.speedX = 2

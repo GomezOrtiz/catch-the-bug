@@ -1,7 +1,6 @@
 function Leafbeetle(game, x) {
     Character.call(this,game,x)
     
-    this.w = 120
     this.h = 148
     
     this.speedX = 2.5

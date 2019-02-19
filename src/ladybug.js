@@ -1,7 +1,6 @@
 function Ladybug(game, x) {
     Character.call(this,game,x)
     
-    this.w = 120
     this.h = 134
     
     this.speedX = 1.5

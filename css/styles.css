@@ -1,5 +1,6 @@
 body {
     background-color: lightgrey;
+    cursor: pointer;
 }
 
 canvas {
@@ -7,3 +8,4 @@ canvas {
     margin: 0 auto;
     padding-top: 30px;
 }
+
