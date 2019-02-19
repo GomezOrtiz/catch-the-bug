@@ -3,12 +3,12 @@ function Starbeetle(game, x) {
     
     this.h = 133
     
-    this.speedX = 2
+    this.speedX = 1.5
 
     this.img = new Image()
     this.img.src = "img/starbeetle.png"
 
-    this.health = 150
+    this.health = 250
     this.goldValue = 200
 
     this.init(x)

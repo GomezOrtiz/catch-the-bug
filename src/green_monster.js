@@ -7,8 +7,7 @@ function GreenMonster(game, x, y, minX, maxX, minY, maxY) {
     this.damage = 50
     this.range = 100
 
-    this.upgradeValue = 500
-    this.goldValue = 500
+    this.upgradeValue = 750
 
     this.level = 1
 
@@ -46,6 +45,6 @@ GreenMonster.prototype.upgrade = function () {
             this.level++
         }
         this.game.gold -= this.upgradeValue
-        this.upgradeValue = 1000
+        this.upgradeValue = 1500
     }    
 }

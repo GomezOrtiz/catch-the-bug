@@ -14,14 +14,17 @@ var Game = {
     waves: [
         {ladybugs:1},
         {ladybugs:2},
+        {ladybugs:3},
         {starbeetles:1,ladybugs:2},
         {starbeetles:1,ladybugs:3},
-        {starbeetles:2,ladybugs:3},
-        {leafbeetles:1,starbeetles:2,ladybugs:2},
-        {leafbeetles:2,starbeetles:2,ladybugs:2},
-        {leafbeetles:2,starbeetles:4,ladybugs:2},
-        {leafbeetles:4,starbeetles:2,ladybugs:2},
-        {leafbeetles:4,starbeetles:4,ladybugs:4},
+        {starbeetles:2,ladybugs:2},
+        {starbeetles:2},
+        {starbeetles:3},
+        {leafbeetles:1,starbeetles:2},
+        {leafbeetles:2,starbeetles:3},
+        {leafbeetles:3,starbeetles:2},
+        {leafbeetles:4,starbeetles:2},
+        {leafbeetles:6},
     ],
 
     targets: [
@@ -63,7 +66,7 @@ var Game = {
             this.isHit()
             this.isGameOver()
             
-            if (this.enemies.length === 0){
+            if (this.enemies.length === 0 && this.wave < this.waves.length){
                 this.wave++
                 this.pushWave(this.wave)
             }
@@ -78,7 +81,7 @@ var Game = {
         this.wave = 0
         this.enemies = []
         this.towers = []
-        this.lives = 3
+        this.lives = 5
         this.enemySelection = 1
         this.background = new Background(this)
         this.scoreGold = new ScoreGold(this)
@@ -95,39 +98,33 @@ var Game = {
 
         document.onclick = function (e) {
 
-                if(e.screenY > 587 && e.screenY < 620){
-                    if(e.screenX > 745 && e.screenX < 785){
-                        this.enemySelection = 1
-                        console.log(this.enemySelection)
-                    } else if (e.screenX > 797 && e.screenX < 831) {
-                        this.enemySelection = 2
-                        console.log(this.enemySelection)
-                    }
-                }
-
                 var target = this.targets.filter(function(target) {
                     return target.minX < e.screenX && target.maxX > e.screenX && target.minY < e.screenY && target.maxY > e.screenY
                 })
 
                 if (target.length > 0 && target[0].tower === false){
-                    if (this.gold >= 500) {
                         if (this.enemySelection === 1){
-                            var newTower = new PurpleMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
-                            this.towers.push(newTower)
-                            this.gold -= 500
-                            target[0].tower = true
+                            if (this.gold >= 250) {
+                                var newTower = new PurpleMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
+                                this.towers.push(newTower)
+                                this.gold -= 250
+                                target[0].tower = true
+                            }
                         }
                         else if (this.enemySelection === 2) {
-                            var newTower = new GreenMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
-                            this.towers.push(newTower)
-                            this.gold -= 500
-                            target[0].tower = true
+                            if (this.gold >= 500) {
+                                var newTower = new GreenMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
+                                this.towers.push(newTower)
+                                this.gold -= 500
+                                target[0].tower = true
+                            }
                         }
-                    }
                 } else {
                     this.towers.forEach(function(tower) {
                         tower.upgradeListener(e)
                     })
+
+                    this.purpleBtn.buttonListener(e)
                 }
         
         }.bind(this)
@@ -231,14 +228,12 @@ var Game = {
         this.enemies.forEach(function (enemy){
             if (enemy.x > this.w){
                 this.lives -= 1
-                this.gold = Math.round(this.gold / 2)
                 this.enemies.splice(this.enemies.indexOf(enemy),1)
             }
             if (this.lives === 0){
                 this.stop()
     
                 if (confirm("GAME OVER. Play again?")) {
-                  this.reset()
                   this.start()
                 }
             }

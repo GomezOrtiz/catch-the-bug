@@ -4,11 +4,10 @@ function PurpleMonster(game, x, y, minX, maxX, minY, maxY) {
     this.w = 140
     this.h = 117
 
-    this.damage = 50
+    this.damage = 25
     this.range = 100
 
     this.upgradeValue = 500
-    this.goldValue = 500
 
     this.level = 1
 
@@ -31,7 +30,7 @@ PurpleMonster.prototype.upgrade = function () {
             this.imgSouth = "img/purple_monster_lv2_S.png"
             this.imgNorth = "img/purple_monster_lv2_N.png"
     
-            this.damage = 100
+            this.damage = 50
             this.range = 150
         
             this.level++
@@ -40,7 +39,7 @@ PurpleMonster.prototype.upgrade = function () {
             this.imgSouth = "img/purple_monster_lv3_S.png"
             this.imgNorth = "img/purple_monster_lv3_N.png"
     
-            this.damage = 200
+            this.damage = 100
             this.range = 200
     
             this.level++
