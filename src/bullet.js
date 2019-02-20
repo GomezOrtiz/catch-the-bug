@@ -1,4 +1,4 @@
-function Bullet(game, x, y, charX, charY, damage, direction) {
+function Bullet(game, x, y, charX, charY, damage, direction, bulletImg) {
     this.game = game
   
     this.x = x
@@ -16,9 +16,10 @@ function Bullet(game, x, y, charX, charY, damage, direction) {
 
     this.hit = false
     this.damage = damage
-  
+
+    this.bulletImg = bulletImg
+    
     this.img = new Image()
-    this.img.src = "img/bullet.png"
 
     this.getY()
   }
@@ -30,6 +31,7 @@ Bullet.prototype.getY = function () {
 }
 
 Bullet.prototype.draw = function() {
+    this.img.src = this.bulletImg
     this.game.ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
 }
 

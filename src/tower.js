@@ -79,7 +79,7 @@ Tower.prototype.attack = function() {
     if (this.game.framesCounter % 60 === 0){
         for (var i = 0; i < this.game.enemies.length; i++){
             if (!this.game.enemies[i].isDead && this.game.enemies[i].x > this.x - this.range && this.game.enemies[i].x < this.x + this.range){
-                var bullet = new Bullet(this.game, (this.x + this.w / 2 - 15), this.y, (this.game.enemies[i].x + this.game.enemies[i].w), (this.game.enemies[i].y + this.game.enemies[i].h), this.damage, this.direction)
+                var bullet = new Bullet(this.game, (this.x + this.w / 2 - 15), this.y, (this.game.enemies[i].x + this.game.enemies[i].w), (this.game.enemies[i].y + this.game.enemies[i].h), this.damage, this.direction, this.bulletImg)
                 this.bullets.push(bullet)
                 this.attackAnimation()
                 break

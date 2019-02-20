@@ -16,6 +16,7 @@ function GreenMonster(game, x, y, minX, maxX, minY, maxY) {
 
     this.imgSouth = "img/green_monster_lv1_S.png"
     this.imgNorth = "img/green_monster_lv1_N.png"
+    this.bulletImg = "img/bullet_green_lv1.png"
 
     this.init(x)
 }
@@ -29,7 +30,9 @@ GreenMonster.prototype.upgrade = function () {
         if (this.level === 1){
             this.imgSouth = "img/green_monster_lv2_S.png"
             this.imgNorth = "img/green_monster_lv2_N.png"
-    
+            this.bulletImg = "img/bulletgreen2.png"
+
+
             this.damage = 100
             this.range = 150
         
@@ -38,7 +41,8 @@ GreenMonster.prototype.upgrade = function () {
         } else if (this.level === 2){
             this.imgSouth = "img/green_monster_lv3_S.png"
             this.imgNorth = "img/green_monster_lv3_N.png"
-    
+            this.bulletImg = "img/bulletgreen3.png"
+
             this.damage = 200
             this.range = 200
     

@@ -25,6 +25,7 @@ var Game = {
         {leafbeetles:3,starbeetles:2},
         {leafbeetles:4,starbeetles:2},
         {leafbeetles:6},
+        {leafbeetles:12},
     ],
 
     targets: [
@@ -44,9 +45,9 @@ var Game = {
 
     start: function () {
 
-        this.setListeners()
-
         this.reset()
+
+        this.setListeners()
 
         this.pushWave(this.wave)
 
@@ -69,6 +70,10 @@ var Game = {
             if (this.enemies.length === 0 && this.wave < this.waves.length){
                 this.wave++
                 this.pushWave(this.wave)
+            } else if (this.wave === this.waves.length) {
+                if (confirm("YOU WIN. Play again?")) {
+                    this.start()
+                  }
             }
 
         }.bind(this), 1000 / this.fps)
@@ -86,8 +91,8 @@ var Game = {
         this.background = new Background(this)
         this.scoreGold = new ScoreGold(this)
         this.scoreLives = new ScoreLives(this)
-        this.purpleBtn = new Button(this,this.w - 400, "img/buy_purple.png")
-        this.greenBtn = new Button (this, this.w - 350, "img/buy_green.png")
+        this.purpleBtn = new Button(this,this.w - 440, "img/buy_purple2.png")
+        this.greenBtn = new Button (this, this.w - 380, "img/buy_green2.png")
     },
 
     stop: function () {

@@ -17,6 +17,8 @@ function PurpleMonster(game, x, y, minX, maxX, minY, maxY) {
     this.imgSouth = "img/purple_monster_lv1_S.png"
     this.imgNorth = "img/purple_monster_lv1_N.png"
 
+    this.bulletImg = "img/bullet.png"
+
     this.init(x)
 }
 
@@ -25,7 +27,7 @@ PurpleMonster.prototype.constructor = PurpleMonster
 
 PurpleMonster.prototype.upgrade = function () {
 
-    if (this.game.gold >= this.upgradeValue){
+    if (this.game.gold >= this.upgradeValue && this.level < 3){
         if (this.level === 1){
             this.imgSouth = "img/purple_monster_lv2_S.png"
             this.imgNorth = "img/purple_monster_lv2_N.png"

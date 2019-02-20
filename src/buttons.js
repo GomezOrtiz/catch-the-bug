@@ -5,7 +5,7 @@ function Button (game, x, src) {
     this.h = 50
 
     this.x = x 
-    this.y = this.game.h - 60
+    this.y = this.game.h - 75
 
     this.img = new Image()
     this.img.src = src
@@ -17,14 +17,13 @@ Button.prototype.draw = function() {
 }
 
 Button.prototype.buttonListener = function (e) {
-
-    if(e.screenY > 587 && e.screenY < 620){
-        if(e.screenX > 745 && e.screenX < 785){
+    console.log(e.screenX)
+    console.log(e.screenY)
+    if(e.screenY > 565 && e.screenY < 610){
+        if(e.screenX > 700 && e.screenX < 750){
             this.game.enemySelection = 1
-            console.log(this.game.enemySelection)
-        } else if (e.screenX > 797 && e.screenX < 831) {
+        } else if (e.screenX > 762 && e.screenX < 810) {
             this.game.enemySelection = 2
-            console.log(this.game.enemySelection)
         }
     }
 
