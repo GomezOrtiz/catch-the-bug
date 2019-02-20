@@ -45,7 +45,7 @@ Character.prototype.animateImg = function() {
 
 Character.prototype.drawLife = function() {
     this.game.ctx.fillStyle = "green";
-    this.game.ctx.fillRect(this.x + 20, this.y + 10, this.health / 3, 5);
+    this.game.ctx.fillRect(this.x + 20, this.y + 10, this.health / this.healthDivider, 5);
 }
 
 Character.prototype.move = function() {

@@ -30,12 +30,10 @@ Button.prototype.draw = function(color) {
 }
 
 Button.prototype.buttonListener = function (e) {
-    console.log("X: " + e.screenX)
-    console.log("Y: " + e.screenY)
-    if(e.screenY > 550 && e.screenY < 615){
-        if(e.screenX > 740 && e.screenX < 812){
+    if(e.clientY > 445 && e.clientY < 510){
+        if(e.clientX > 740 && e.clientX < 812){
             this.game.enemySelection = 1
-        } else if (e.screenX > 819 && e.screenX < 890) {
+        } else if (e.clientX > 820 && e.clientX < 890) {
             this.game.enemySelection = 2
         }
     }

@@ -91,7 +91,7 @@ Tower.prototype.attack = function() {
 
 Tower.prototype.upgradeListener = function (e) {
 
-    if (this.minX < e.screenX && this.maxX > e.screenX && this.minY < e.screenY && this.maxY > e.screenY){
+    if (this.minX < e.clientX && this.maxX > e.clientX && this.minY < e.clientY && this.maxY > e.clientY){
         this.upgrade()
     }
 
