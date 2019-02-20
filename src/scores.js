@@ -18,10 +18,10 @@ function ScoreGold (game) {
   Score.call(this,game)
 
   this.img = new Image()
-  this.img.src = 'img/gold2.png'
-
-  this.x = (this.game.w - this.w - 25)
+  this.img.src = 'img/gold3.png'
+  
   this.y = this.game.h - 80
+  this.x = (this.game.w - this.w * 2 + 48)
   
 }
 
@@ -30,20 +30,20 @@ ScoreGold.prototype.constructor = ScoreGold
 
 ScoreGold.prototype.drawText = function () {
   this.game.ctx.fillStyle = "white"
-  this.game.ctx.fillText(this.game.gold, this.x + 50,this.y + 35)
+  this.game.ctx.fillText(this.game.gold, this.x + 82,this.y + 34)
 }
 
 function ScoreLives (game) {
   Score.call(this,game)
 
   this.img = new Image()
-  this.img.src = 'img/lives3.png'
+  this.img.src = 'img/lives4.png'
 
   this.w = 98
   this.h = 56
 
+  this.x = (this.game.w - this.w - 28)
   this.y = this.game.h - 80
-  this.x = (this.game.w - this.w * 3 - 10)
 
   this.text = this.game.lives
   
@@ -54,5 +54,5 @@ ScoreLives.prototype.constructor = ScoreLives
 
 ScoreLives.prototype.drawText = function () {
   this.game.ctx.fillStyle = "white"
-  this.game.ctx.fillText(this.game.lives, this.x + 50,this.y + 32)
+  this.game.ctx.fillText(this.game.lives, this.x + 60,this.y + 32)
 }

@@ -1,5 +1,5 @@
 var Game = {
-    w: 1000,
+    w: 1140,
     h: 500,
     fps: 60,
 
@@ -29,18 +29,18 @@ var Game = {
     ],
 
     targets: [
-        {minX:300,maxX:365,minY:230,maxY:290,x:130,y:50,tower:false},
-        {minX:460,maxX:525,minY:230,maxY:290,x:290,y:50,tower:false},
-        {minX:620,maxX:685,minY:230,maxY:290,x:450,y:50,tower:false},
-        {minX:780,maxX:845,minY:230,maxY:290,x:610,y:50,tower:false},
-        {minX:940,maxX:1005,minY:230,maxY:290,x:770,y:50,tower:false},
+        {minX:230,maxX:310,minY:230,maxY:290,x:130,y:50,tower:false},
+        {minX:390,maxX:470,minY:230,maxY:290,x:290,y:50,tower:false},
+        {minX:550,maxX:630,minY:230,maxY:290,x:450,y:50,tower:false},
+        {minX:710,maxX:790,minY:230,maxY:290,x:610,y:50,tower:false},
+        {minX:870,maxX:950,minY:230,maxY:290,x:770,y:50,tower:false},
 
-        {minX:220,maxX:285,minY:430,maxY:490,x:50,y:270,tower:false},
-        {minX:380,maxX:445,minY:430,maxY:490,x:210,y:270,tower:false},
-        {minX:540,maxX:600,minY:430,maxY:490,x:370,y:270,tower:false},
-        {minX:700,maxX:765,minY:430,maxY:490,x:530,y:270,tower:false},
-        {minX:860,maxX:925,minY:430,maxY:490,x:690,y:270,tower:false},
-        {minX:1020,maxX:1085,minY:430,maxY:490,x:850,y:270,tower:false}
+        {minX:150,maxX:230,minY:430,maxY:490,x:50,y:270,tower:false},
+        {minX:310,maxX:390,minY:430,maxY:490,x:210,y:270,tower:false},
+        {minX:470,maxX:550,minY:430,maxY:490,x:370,y:270,tower:false},
+        {minX:630,maxX:710,minY:430,maxY:490,x:530,y:270,tower:false},
+        {minX:790,maxX:870,minY:430,maxY:490,x:690,y:270,tower:false},
+        {minX:950,maxX:1030,minY:430,maxY:490,x:850,y:270,tower:false}
     ],
 
     start: function () {
@@ -89,10 +89,11 @@ var Game = {
         this.lives = 5
         this.enemySelection = 1
         this.background = new Background(this)
+        this.computer = new Computer(this)
         this.scoreGold = new ScoreGold(this)
         this.scoreLives = new ScoreLives(this)
-        this.purpleBtn = new Button(this,this.w - 440, "img/buy_purple2.png")
-        this.greenBtn = new Button (this, this.w - 380, "img/buy_green2.png")
+        this.purpleBtn = new Button(this,this.w - 470, "img/buy_purple3.png")
+        this.greenBtn = new Button (this, this.w - 390, "img/buy_green3.png")
     },
 
     stop: function () {
@@ -174,14 +175,16 @@ var Game = {
         this.background.draw()
         this.scoreGold.draw()
         this.scoreLives.draw()
-        this.purpleBtn.draw()
-        this.greenBtn.draw()
+        this.purpleBtn.draw("purple")
+        this.greenBtn.draw("green")
         this.enemies.forEach (function (enemy) {
             enemy.draw()
         }.bind(this))
         this.towers.forEach (function (tower) {
             tower.draw()
         }.bind(this))
+        this.computer.draw()
+        this.computer.overcharge()
     },
 
     moveAll: function () {
@@ -231,8 +234,14 @@ var Game = {
 
     isGameOver: function () {
         this.enemies.forEach(function (enemy){
-            if (enemy.x > this.w){
+            if (enemy.x > this.w - 170){
                 this.lives -= 1
+                this.computer.overcharging = true
+                setTimeout(function() { 
+                    this.computer.overcharging = false
+                    this.computer.img.src = "img/computer.png"
+                }.bind(this), 2000)
+
                 this.enemies.splice(this.enemies.indexOf(enemy),1)
             }
             if (this.lives === 0){

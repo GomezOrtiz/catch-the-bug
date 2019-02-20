@@ -25,7 +25,7 @@ Tower.prototype.init = function () {
     this.drawable = false
    
     this.upImg = new Image()
-    this.upImg.src = "img/upgrade.png"
+    this.upImg.src = "img/upgrade_south2.png"
 
 }
 
@@ -40,6 +40,7 @@ Tower.prototype.getDirection = function () {
 }
 
 Tower.prototype.draw = function() {
+
     this.getDirection()
     this.game.ctx.drawImage(
         this.img,
@@ -106,15 +107,15 @@ Tower.prototype.canUpgrade = function () {
 
     if (this.upgradable) {
         if (this.direction === "N"){
-            this.upImg.src = "img/upgrade.png"
+            this.upImg.src = "img/upgrade_south2.png"
         } else {
-            this.upImg.src = "img/upgrade_south.png"
+            this.upImg.src = "img/upgrade2.png"
         }
     } else {
         if (this.direction === "N"){
-            this.upImg.src = "img/no_upgrade.png"
+            this.upImg.src = "img/no_upgrade2.png"
         } else {
-            this.upImg.src = "img/no_upgrade_south.png"
+            this.upImg.src = "img/no_upgrade_south2.png"
         }
     }
    
@@ -123,9 +124,15 @@ Tower.prototype.canUpgrade = function () {
 Tower.prototype.drawUpdate = function () {
     if (this.drawable){
         if (this.direction === "N"){
-            this.game.ctx.drawImage(this.upImg, this.x + 25, this.y + this.h -10, 90, 37)
+            this.game.ctx.drawImage(this.upImg, this.x + 25, this.y + this.h -20, 90, 37)
+            this.game.ctx.font = "12px georgia"
+            this.game.ctx.fillStyle = "white"
+            this.game.ctx.fillText(this.upgradeValue, this.x + 90,this.y + this.h + 6)
         } else {
-            this.game.ctx.drawImage(this.upImg, this.x + 25, this.y -25, 90, 37)
+            this.game.ctx.drawImage(this.upImg, this.x + 25, this.y -15, 90, 37)
+            this.game.ctx.font = "12px georgia"
+            this.game.ctx.fillStyle = "white"
+            this.game.ctx.fillText(this.upgradeValue, this.x + 90,this.y + 2)
         }
     }
     

@@ -9,3 +9,21 @@ canvas {
     padding-top: 30px;
 }
 
+
+#controls {
+    display:none;
+    width: 80%;
+    margin: 0 auto;
+    background-color: lightgrey;
+}
+#controls img {
+    width: 600;
+}
+
+#win {
+    display:none;
+}
+
+#lose {
+    display:none;
+}
