@@ -256,7 +256,8 @@ var Game = {
                 this.stop()
     
                 if (confirm("GAME OVER. Play again?")) {
-                  this.start()
+                    this.reset()
+                    this.start()
                 }
             }
         }.bind(this))

@@ -3,12 +3,12 @@ function Ladybug(game, x) {
     
     this.h = 134
     
-    this.speedX = 1.25
+    this.speedX = 1.5
 
     this.img = new Image()
     this.img.src = "img/ladybug.png"
 
-    this.health = 125
+    this.health = 100
     this.healthDivider = 2
     this.goldValue = 150
 

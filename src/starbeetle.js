@@ -3,7 +3,7 @@ function Starbeetle(game, x) {
     
     this.h = 133
     
-    this.speedX = 1.5
+    this.speedX = 2
 
     this.img = new Image()
     this.img.src = "img/starbeetle.png"

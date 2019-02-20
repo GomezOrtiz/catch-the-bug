@@ -9,20 +9,44 @@ body {
 }
 
 canvas {
-    display: block;
+    display: none;
     padding-top: 38px;
     margin-left: 70px;
 }
 
-
-#controls {
-    display:none;
-    width: 80%;
-    margin: 0 auto;
-    background-color: lightgrey;
+#intro {
+    height: 100vh;
+    background: lightgrey
+    background-repeat: repeat;
+    background-size: 100% 100%;
 }
-#controls img {
-    width: 600;
+
+#intro img {
+    display:block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+#tutorial_1, #tutorial_2, #tutorial_3 {
+    display:none;
+    position: absolute;
+    top: 80px;
+}
+
+#tutorial_1 img, #tutorial_2 img, #tutorial_3 img {
+    display:block;
+    margin: 0 auto;
+    width: 50%
+}
+
+#example {
+    display: none;
+    padding-top: 38px;
+    margin-left: 70px;
+}
+
+#example img {
+    width: 100%;
 }
 
 #win {

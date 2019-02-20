@@ -3,7 +3,7 @@ function Leafbeetle(game, x) {
     
     this.h = 148
     
-    this.speedX = 2
+    this.speedX = 2.5
 
     this.img = new Image()
     this.img.src = "img/leafbeetle.png"
