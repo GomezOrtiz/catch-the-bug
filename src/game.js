@@ -11,36 +11,6 @@ var Game = {
         this.start()
     },
 
-    waves: [
-        {stinkbugs:2},
-        {ladybugs:2,stinkbugs:1},
-        {starbeetles:1,ladybugs:2},
-        {starbeetles:1,ladybugs:3},
-        {starbeetles:2,ladybugs:2},
-        {starbeetles:2},
-        {starbeetles:3},
-        {leafbeetles:1,starbeetles:2},
-        {leafbeetles:2,starbeetles:3},
-        {leafbeetles:4,starbeetles:2},
-        {leafbeetles:6},
-        {zombies:1}
-    ],
-
-    targets: [
-        {minX:230,maxX:310,minY:115,maxY:200,x:130,y:50,tower:false},
-        {minX:390,maxX:470,minY:115,maxY:200,x:290,y:50,tower:false},
-        {minX:550,maxX:630,minY:115,maxY:200,x:450,y:50,tower:false},
-        {minX:710,maxX:790,minY:115,maxY:200,x:610,y:50,tower:false},
-        {minX:870,maxX:950,minY:115,maxY:200,x:770,y:50,tower:false},
-
-        {minX:150,maxX:230,minY:315,maxY:400,x:50,y:270,tower:false},
-        {minX:310,maxX:390,minY:315,maxY:400,x:210,y:270,tower:false},
-        {minX:470,maxX:550,minY:315,maxY:400,x:370,y:270,tower:false},
-        {minX:630,maxX:710,minY:315,maxY:400,x:530,y:270,tower:false},
-        {minX:790,maxX:870,minY:315,maxY:400,x:690,y:270,tower:false},
-        {minX:950,maxX:1030,minY:315,maxY:400,x:850,y:270,tower:false}
-    ],
-
     start: function () {
 
         this.reset()
@@ -65,10 +35,10 @@ var Game = {
             this.isHit()
             this.isGameOver()
             
-            if (this.enemies.length === 0 && this.wave < this.waves.length){
+            if (this.enemies.length === 0 && this.wave < waves.length){
                 this.wave++
                 this.pushWave(this.wave)
-            } else if (this.wave === this.waves.length) {
+            } else if (this.wave === waves.length) {
                 if (confirm("YOU WIN. Play again?")) {
                     this.start()
                   }
@@ -85,7 +55,7 @@ var Game = {
         this.enemies = []
         this.towers = []
         this.lives = 5
-        this.enemySelection = 1
+        this.enemySelection = 0
         this.background = new Background(this)
         this.computer = new Computer(this)
         this.scoreGold = new ScoreGold(this)
@@ -102,7 +72,7 @@ var Game = {
 
         window.onclick = function (e) {
 
-                var target = this.targets.filter(function(target) {
+                var target = targets.filter(function(target) {
                     return target.minX < e.clientX && target.maxX > e.clientX && target.minY < e.clientY && target.maxY > e.clientY
                 })
 
@@ -113,6 +83,8 @@ var Game = {
                                 this.towers.push(newTower)
                                 this.gold -= 250
                                 target[0].tower = true
+                                document.querySelector("body").style.cursor = "pointer"
+                                this.enemySelection = 0
                             }
                         }
                         else if (this.enemySelection === 2) {
@@ -121,6 +93,8 @@ var Game = {
                                 this.towers.push(newTower)
                                 this.gold -= 500
                                 target[0].tower = true
+                                document.querySelector("body").style.cursor = "pointer"
+                                this.enemySelection = 0
                             }
                         }
                 } else {
@@ -148,27 +122,27 @@ var Game = {
 
     pushWave: function (wave) {
         var counter = 0
-        for (var i = 0; i < this.waves[wave].zombies; i++){
+        for (var i = 0; i < waves[wave].zombies; i++){
             var newEnemy = new Zombie (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < this.waves[wave].leafbeetles; i++){
+        for (var i = 0; i < waves[wave].leafbeetles; i++){
             var newEnemy = new Leafbeetle (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < this.waves[wave].starbeetles; i++){
+        for (var i = 0; i < waves[wave].starbeetles; i++){
             var newEnemy = new Starbeetle (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < this.waves[wave].ladybugs; i++){
+        for (var i = 0; i < waves[wave].ladybugs; i++){
             var newEnemy = new Ladybug (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < this.waves[wave].stinkbugs; i++){
+        for (var i = 0; i < waves[wave].stinkbugs; i++){
             var newEnemy = new Stinkbug (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
@@ -185,14 +159,16 @@ var Game = {
         this.scoreLives.draw()
         this.purpleBtn.draw("purple")
         this.greenBtn.draw("green")
+        this.computer.drawLeft()
         this.enemies.forEach (function (enemy) {
             enemy.draw()
         }.bind(this))
+        this.computer.drawRight()
+        this.computer.overchargeLeft()
+        this.computer.overchargeRight()
         this.towers.forEach (function (tower) {
             tower.draw()
         }.bind(this))
-        this.computer.draw()
-        this.computer.overcharge()
     },
 
     moveAll: function () {
@@ -245,9 +221,11 @@ var Game = {
             if (enemy.x > this.w - 170){
                 this.lives -= 1
                 this.computer.overcharging = true
+                this.computer.overcharge()
                 setTimeout(function() { 
                     this.computer.overcharging = false
-                    this.computer.img.src = "img/computer.png"
+                    this.computer.left.src = "img/computer_left.png"
+                    this.computer.right.src = "img/computer_right.png"
                 }.bind(this), 2000)
 
                 this.enemies.splice(this.enemies.indexOf(enemy),1)

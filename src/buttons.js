@@ -32,9 +32,15 @@ Button.prototype.draw = function(color) {
 Button.prototype.buttonListener = function (e) {
     if(e.clientY > 445 && e.clientY < 510){
         if(e.clientX > 740 && e.clientX < 812){
-            this.game.enemySelection = 1
+            if (this.game.gold >= 250){
+                this.game.enemySelection = 1
+                document.querySelector("body").style.cursor = "cell"
+            }
         } else if (e.clientX > 820 && e.clientX < 890) {
-            this.game.enemySelection = 2
+            if (this.game.gold >= 500){
+                this.game.enemySelection = 2
+                document.querySelector("body").style.cursor = "cell"
+            }
         }
     }
 

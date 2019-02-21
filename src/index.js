@@ -19,9 +19,13 @@ window.onload = function() {
         tutorial2.style.display = "block"
         tutorial1.style.display = "none"
       } else if (tutorial2.style.display === "block"){
+        tutorial3.style.display = "block"
         tutorial2.style.display = "none"
+      } else if (tutorial3.style.display === "block"){
+        tutorial3.style.display = "none"
         example.style.display = "none"
         // tutorial3.style.display = "block"
+        document.querySelector("body").style.cursor = "pointer"
         Game.init("canvas") 
       }
       // } else if (tutorial3.style.display === "block"){

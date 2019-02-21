@@ -8,7 +8,7 @@ function Leafbeetle(game, x) {
     this.img = new Image()
     this.img.src = "img/leafbeetle.png"
 
-    this.health = 400
+    this.health = 350
     this.healthDivider = 5
     this.goldValue = 300
 
