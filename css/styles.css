@@ -13,6 +13,14 @@ canvas {
     margin-left: 70px;
 }
 
+#win, #lose {
+    display:none;
+    padding-top: 38px;
+    margin-left: 70px;
+    width: 1140;
+    height: 500;
+}
+
 #intro {
     height: 100vh;
     background: lightgrey

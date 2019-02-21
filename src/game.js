@@ -39,14 +39,14 @@ var Game = {
                 this.wave++
                 this.pushWave(this.wave)
             } else if (this.wave === waves.length) {
-                if (confirm("YOU WIN. Play again?")) {
-                    this.start()
-                  }
-            }
+                setTimeout(function() { 
+                    win.style.display = "block"
+                    canvas.style.display = "none"
+                }.bind(this), 200)
+            }    
 
         }.bind(this), 1000 / this.fps)
     },
-
     
     reset: function () {
         this.framesCounter = 0;
@@ -232,11 +232,10 @@ var Game = {
             }
             if (this.lives === 0){
                 this.stop()
-    
-                if (confirm("GAME OVER. Play again?")) {
-                    this.reset()
-                    this.start()
-                }
+                setTimeout(function() { 
+                    lose.style.display = "block"
+                    canvas.style.display = "none"
+                }.bind(this), 200)
             }
         }.bind(this))
     }

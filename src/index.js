@@ -4,6 +4,7 @@ window.onload = function() {
   var tutorial2 = document.querySelector("#tutorial_2")
   var tutorial3 = document.querySelector("#tutorial_3")
   var example = document.querySelector("#example")
+  var win = document.querySelector("#win")
   intro.style.display = "block"
   example.style.width = "1140px"
   example.style.height = "500px"
@@ -27,6 +28,12 @@ window.onload = function() {
         // tutorial3.style.display = "block"
         document.querySelector("body").style.cursor = "pointer"
         Game.init("canvas") 
+      } else if (win.style.display === "block" || lose.style.display === "block") {
+            win.style.display = "none"
+            lose.style.display = "none"
+            canvas.style.display = "block"
+            Game.stop()
+            Game.start()
       }
       // } else if (tutorial3.style.display === "block"){
       //   tutorial1.style.display = "none"
