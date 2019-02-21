@@ -32,13 +32,13 @@ canvas {
     height: 100%;
 }
 
-#tutorial_1, #tutorial_2, #tutorial_3 {
+#tutorial_1, #tutorial_2, #tutorial_3, #level {
     display:none;
     position: absolute;
     top: 80px;
 }
 
-#tutorial_1 img, #tutorial_2 img, #tutorial_3 img {
+#tutorial_1 img, #tutorial_2 img, #tutorial_3 img, #level img {
     display:block;
     margin: 0 auto;
     width: 50%

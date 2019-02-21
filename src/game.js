@@ -2,6 +2,7 @@ var Game = {
     w: 1140,
     h: 500,
     fps: 60,
+    level: 1,
 
     init: function(id) {
         this.canvas = document.getElementById(id)
@@ -10,7 +11,7 @@ var Game = {
         this.canvas.height = this.h
         this.start()
     },
-
+    
     start: function () {
 
         this.reset()
@@ -35,10 +36,12 @@ var Game = {
             this.isHit()
             this.isGameOver()
             
-            if (this.enemies.length === 0 && this.wave < waves.length){
+            if (this.enemies.length === 0 && this.wave < waves[this.level].length){
+                console.log(waves[this.level].length)
                 this.wave++
                 this.pushWave(this.wave)
-            } else if (this.wave === waves.length) {
+            } else if (this.wave === waves[this.level].length) {
+                this.stop()
                 setTimeout(function() { 
                     win.style.display = "block"
                     canvas.style.display = "none"
@@ -50,11 +53,21 @@ var Game = {
     
     reset: function () {
         this.framesCounter = 0;
-        this.gold = 500
+        switch (this.level){
+            case 0:
+            this.lives = 5
+            break
+            case 1:
+            this.lives = 4
+            break
+            case 2:
+            this.lives = 3
+            break
+        }
         this.wave = 0
+        this.gold = 500
         this.enemies = []
         this.towers = []
-        this.lives = 5
         this.enemySelection = 0
         this.background = new Background(this)
         this.computer = new Computer(this)
@@ -122,27 +135,27 @@ var Game = {
 
     pushWave: function (wave) {
         var counter = 0
-        for (var i = 0; i < waves[wave].zombies; i++){
+        for (var i = 0; i < waves[this.level][wave].zombies; i++){
             var newEnemy = new Zombie (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < waves[wave].leafbeetles; i++){
+        for (var i = 0; i < waves[this.level][wave].leafbeetles; i++){
             var newEnemy = new Leafbeetle (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < waves[wave].starbeetles; i++){
+        for (var i = 0; i < waves[this.level][wave].starbeetles; i++){
             var newEnemy = new Starbeetle (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < waves[wave].ladybugs; i++){
+        for (var i = 0; i < waves[this.level][wave].ladybugs; i++){
             var newEnemy = new Ladybug (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
         }
-        for (var i = 0; i < waves[wave].stinkbugs; i++){
+        for (var i = 0; i < waves[this.level][wave].stinkbugs; i++){
             var newEnemy = new Stinkbug (this, counter*-150)
             this.enemies.push(newEnemy)
             counter++
@@ -220,6 +233,9 @@ var Game = {
         this.enemies.forEach(function (enemy){
             if (enemy.x > this.w - 170){
                 this.lives -= 1
+                    if (this.level === 2){
+                        this.gold -= 100
+                    }
                 this.computer.overcharging = true
                 this.computer.overcharge()
                 setTimeout(function() { 
