@@ -57,6 +57,7 @@ Character.prototype.receiveDamage = function (damage) {
     if (this.health <= 0){
         this.isDead = true
         this.game.enemies.splice(this.game.enemies.indexOf(this),1)
+        insectDie.play()
         if (!this.goldGiven){
             this.game.gold += this.goldValue
             this.goldGiven = true

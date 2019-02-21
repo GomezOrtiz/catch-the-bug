@@ -45,8 +45,11 @@ PurpleMonster.prototype.upgrade = function () {
             this.range = 200
     
             this.level++
+        } else if (this.level === 3) {
+            this.upgradable = false
         }
         this.game.gold -= this.upgradeValue
+        upgrade.play()
         this.upgradeValue = 1000
     }    
 }

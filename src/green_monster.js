@@ -26,7 +26,7 @@ GreenMonster.prototype.constructor = GreenMonster
 
 GreenMonster.prototype.upgrade = function () {
 
-    if (this.game.gold >= this.upgradeValue){
+    if (this.game.gold >= this.upgradeValue && this.level < 3){
         if (this.level === 1){
             this.imgSouth = "img/green_monster_lv2_S.png"
             this.imgNorth = "img/green_monster_lv2_N.png"
@@ -47,8 +47,11 @@ GreenMonster.prototype.upgrade = function () {
             this.range = 200
     
             this.level++
+        } else if (this.level === 3) {
+            this.upgradable = false
         }
         this.game.gold -= this.upgradeValue
+        upgrade.play()
         this.upgradeValue = 1250
     }    
 }

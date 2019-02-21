@@ -83,6 +83,11 @@ Tower.prototype.attack = function() {
                 var bullet = new Bullet(this.game, (this.x + this.w / 2 - 15), this.y, (this.game.enemies[i].x + this.game.enemies[i].w), (this.game.enemies[i].y + this.game.enemies[i].h), this.damage, this.direction, this.bulletImg)
                 this.bullets.push(bullet)
                 this.attackAnimation()
+                if (this.bulletImg === "img/bulletgreen3.png" || this.bullet === "img/bulletgreen2.png"){
+                    shootLaser.play()
+                } else {
+                    shoot.play()
+                }
                 break
             }
         }
@@ -99,7 +104,7 @@ Tower.prototype.upgradeListener = function (e) {
 
 Tower.prototype.canUpgrade = function () {
 
-    if (this.game.gold >= this.upgradeValue){
+    if (this.game.gold >= this.upgradeValue && this.level < 3){
         this.upgradable = true
     } else {
         this.upgradable = false

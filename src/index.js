@@ -14,18 +14,23 @@ window.onload = function() {
   document.onkeydown = function(e) {
     if (e.keyCode === 13) {
       if (intro.style.display === "block"){
+        mainTune.play()
         example.style.display = "block"
         tutorial1.style.display = "block"
         intro.style.display = "none"
+        confirm.play()
       } else if (tutorial1.style.display === "block"){
         tutorial2.style.display = "block"
         tutorial1.style.display = "none"
+        confirm.play()
       } else if (tutorial2.style.display === "block"){
         tutorial3.style.display = "block"
         tutorial2.style.display = "none"
+        confirm.play()
       } else if (tutorial3.style.display === "block"){
         level.style.display = "block"
         tutorial3.style.display = "none"
+        confirm.play()
       } else if (win.style.display === "block" || lose.style.display === "block") {
             win.style.display = "none"
             lose.style.display = "none"
@@ -42,10 +47,13 @@ window.onload = function() {
       if (e.clientX > 520 && e.clientX < 755){
         if(e.clientY > 190 && e.clientY < 243){
             Game.level = 0
+            confirmLevel.play()
         } else if (e.clientY > 275 && e.clientY < 325){
             Game.level = 1
+            confirmLevel.play()
         } else if (e.clientY > 360 && e.clientY < 410){
           Game.level = 2
+          confirmLevel.play()
         }
       }
     level.style.display = "none"

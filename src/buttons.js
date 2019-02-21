@@ -34,11 +34,13 @@ Button.prototype.buttonListener = function (e) {
         if(e.clientX > 740 && e.clientX < 812){
             if (this.game.gold >= 250){
                 this.game.enemySelection = 1
+                coin.play()
                 document.querySelector("body").style.cursor = "cell"
             }
         } else if (e.clientX > 820 && e.clientX < 890) {
             if (this.game.gold >= 500){
                 this.game.enemySelection = 2
+                coin.play()
                 document.querySelector("body").style.cursor = "cell"
             }
         }

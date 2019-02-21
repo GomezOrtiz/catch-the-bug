@@ -28,7 +28,11 @@ var Game = {
             if (this.framesCounter > 1000) {
                 this.framesCounter = 0
             }
-
+            if (zombieMusic.paused && (mainTune.ended || mainTune.paused)){
+                mainTune.play()
+            } else if (zombieMusic.ended) {
+                zombieMusic.play()
+            }
             this.moveAll()
             this.drawAll()
             this.attackAll()
@@ -37,10 +41,14 @@ var Game = {
             this.isGameOver()
             
             if (this.enemies.length === 0 && this.wave < waves[this.level].length){
-                console.log(waves[this.level].length)
                 this.wave++
                 this.pushWave(this.wave)
             } else if (this.wave === waves[this.level].length) {
+                mainTune.pause()
+                mainTune.currentTime = 0
+                zombieMusic.pause()
+                zombieMusic.currentTime = 0
+                winSound.play()
                 this.stop()
                 setTimeout(function() { 
                     win.style.display = "block"
@@ -68,6 +76,9 @@ var Game = {
         this.gold = 500
         this.enemies = []
         this.towers = []
+        targets.forEach (function (target) {
+            target.tower = false
+        })
         this.enemySelection = 0
         this.background = new Background(this)
         this.computer = new Computer(this)
@@ -94,6 +105,7 @@ var Game = {
                             if (this.gold >= 250) {
                                 var newTower = new PurpleMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
                                 this.towers.push(newTower)
+                                purpleVoice.play()
                                 this.gold -= 250
                                 target[0].tower = true
                                 document.querySelector("body").style.cursor = "pointer"
@@ -104,6 +116,7 @@ var Game = {
                             if (this.gold >= 500) {
                                 var newTower = new GreenMonster(this,target[0].x,target[0].y,target[0].minX,target[0].maxX,target[0].minY,target[0].maxY)
                                 this.towers.push(newTower)
+                                greenVoice.play()
                                 this.gold -= 500
                                 target[0].tower = true
                                 document.querySelector("body").style.cursor = "pointer"
@@ -133,11 +146,14 @@ var Game = {
         }.bind(this)
     },
 
-    pushWave: function (wave) {
+    pushWave: function (wave) { 
         var counter = 0
         for (var i = 0; i < waves[this.level][wave].zombies; i++){
             var newEnemy = new Zombie (this, counter*-150)
             this.enemies.push(newEnemy)
+            mainTune.pause()
+            mainTune.currentTime = 0
+            zombieMusic.play()
             counter++
         }
         for (var i = 0; i < waves[this.level][wave].leafbeetles; i++){
@@ -238,6 +254,7 @@ var Game = {
                     }
                 this.computer.overcharging = true
                 this.computer.overcharge()
+                shock.play()
                 setTimeout(function() { 
                     this.computer.overcharging = false
                     this.computer.left.src = "img/computer_left.png"
@@ -247,6 +264,11 @@ var Game = {
                 this.enemies.splice(this.enemies.indexOf(enemy),1)
             }
             if (this.lives === 0){
+                mainTune.pause()
+                mainTune.currentTime = 0
+                zombieMusic.pause()
+                zombieMusic.currentTime = 0                
+                gameoverSound.play()
                 this.stop()
                 setTimeout(function() { 
                     lose.style.display = "block"
