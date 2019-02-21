@@ -28,9 +28,6 @@ purpleVoice.src = "audio/monstervoice_purple.wav"
 var greenVoice = new Audio ()
 greenVoice.src = "audio/monstervoice_green.wav"
 
-var newInsect = new Audio ()
-newInsect.src = "audio/newinsect.wav"
-
 var insectDie = new Audio ()
 insectDie.src = "audio/insectdie.wav"
 
