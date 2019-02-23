@@ -38,7 +38,7 @@ window.onload = function() {
             level.style.display = "block"
             example.style.display = "block"
       }
-    /* DESCOMENTAR ESTOS ATAJOS PARA MOSTRAR RÁPIDAMENTE TODAS LAS FUNCIONALIDADES: 
+    /* EN EL MODO FÁCIL, DESCOMENTAR ESTOS ATAJOS PARA MOSTRAR RÁPIDAMENTE TODAS LAS FUNCIONALIDADES: 
     } else if (e.keyCode === 71){
         console.log("KLAPAUCIUS!!!!!")
         Game.gold += 5000

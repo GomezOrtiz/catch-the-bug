@@ -248,11 +248,7 @@ var Game = {
     isGameOver: function () {
         this.enemies.forEach(function (enemy){
             if (enemy.x > this.w - 170){
-                if (enemy.img.src === "img/zombie_sprite.png"){
-                    this.lives = 0
-                } else {
                     this.lives -= 1
-                }
                     if (this.level === 2){
                         this.gold -= 100
                     }
