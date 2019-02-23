@@ -38,9 +38,22 @@ window.onload = function() {
             level.style.display = "block"
             example.style.display = "block"
       }
+    /* DESCOMENTAR ESTOS ATAJOS PARA MOSTRAR RÁPIDAMENTE TODAS LAS FUNCIONALIDADES: 
+    } else if (e.keyCode === 71){
+        console.log("KLAPAUCIUS!!!!!")
+        Game.gold += 5000
+    } else if (e.keyCode === 76){
+        console.log("KAMIKAZE!!!!!")
+        Game.lives = 1
+    } else if (e.keyCode === 90){
+        console.log("FEAR THE WALKING DEAD!!!!!")
+        Game.wave = 9
+    } else if (e.keyCode === 69){
+        console.log("INSTAWIN!!!!!")
+        Game.wave = waves[Game.level].length
+    FIN DE LOS ATAJOS */
     }
   }
-
   document.onclick = function (e) {
 
     if (level.style.display === "block") {
